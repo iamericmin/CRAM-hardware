@@ -1,0 +1,847 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 9em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD23\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">1/21/2024</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">11:54:20 AM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:02</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc" class="file"><acronym title="C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc">C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">169</td></tr>
+</table>
+</td>
+</table><a name="IDNNBX4TIHMO1DMOID1NOYHXOYBBRPPIV4DR3VB5BEITWF00WFYW1M"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDF5ANY25LT5DTFCYVJSCV2FJNPH13M2K0FP4N2MLOV3SG1EP0KGYF">Clearance Constraint (Gap=5.984mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDHJYALRP2GWQWNSEC5OC4H5MBVCTJ0PLH0YQCJSD1BZJIKNZ2KC5C">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDDGI5LXYXQVIXMBUBD3LJ22RBEBRCQZBQPKGWQALF0UM4MQLF0BJJ">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDEUR1OGQ5Y3CVOKBFT4VDDO3THH34YDJREDE2DYFQKKRB0WKFAVMN">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID2U0SMG5MNJABIL0RLVSWGEZTIPDZOAWTX004WMDR2M3WTIK5OXUO">Width Constraint (Min=6mil) (Max=50mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID2ERLLR5DH33ECDUWPNGAWHFKDC30Z51PIBN5VLIFDLAOHRJJY55I">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDXHEOYICCXQVPPGVLPXYWY4LKAMPR3403QLAXL3IUOGF2CKF1X4WE">Hole Size Constraint (Min=0.3mil) (Max=100mil) (All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTB3PJQIDHJITPKE2BZ45ZQTSUO0JXPC3HPAVFOIBNWJNTS1QJRMN">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDFBL5FB4NUEPHKJLEBQEB3GA24OQA4Z4GZLUQV1N2QW2VCYCVHA0">Minimum Solder Mask Sliver (Gap=6mil) (All),(All)</a></td>
+<td class="column2">110</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID2ZEK5IQSD4BOHX0Q0YXU5XPN4M0WIVQGU2DLTGKQFMWHNJKOBNMB">Silk To Solder Mask (Clearance=6mil) (IsPad),(All)</a></td>
+<td class="column2">49</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDFWUCGUYWPOM5GMMTH2ZZ0RFPHGKQWFWUY1TCLOF1WT0UY4XHP45D">Silk to Silk (Clearance=6mil) (All),(All)</a></td>
+<td class="column2">6</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVTL3F4GJ5L32J2O4TOLDJKGO1F2IJEFKB2MPQPGQ32IW4ENGTBZD">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDWZ00I1ADM4FPPL2QNDPY1U1Z1M1GI4FF4KPSKCDTBNYXFIXL2TGM">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">169</td>
+</tr>
+</table><br><a name="IDXHEOYICCXQVPPGVLPXYWY4LKAMPR3403QLAXL3IUOGF2CKF1X4WE"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Hole Size Constraint (Min=0.3mil) (Max=100mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2090.325mil|Location2.X=2209.675mil|Location1.Y=1702.825mil|Location2.Y=1822.175mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2090.325mil|Location2.X=2209.675mil|Location1.Y=1702.825mil|Location2.Y=1822.175mil|Absolute=True">Hole Size Constraint: (118.1mil &gt; 100mil) Pad Free-6(2150mil,1762.5mil) on Multi-Layer Actual Hole Size = 118.1mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2090.325mil|Location2.X=2209.675mil|Location1.Y=3502.825mil|Location2.Y=3622.175mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2090.325mil|Location2.X=2209.675mil|Location1.Y=3502.825mil|Location2.Y=3622.175mil|Absolute=True">Hole Size Constraint: (118.1mil &gt; 100mil) Pad Free-6(2150mil,3562.5mil) on Multi-Layer Actual Hole Size = 118.1mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5590.325mil|Location2.X=5709.675mil|Location1.Y=1702.825mil|Location2.Y=1822.175mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5590.325mil|Location2.X=5709.675mil|Location1.Y=1702.825mil|Location2.Y=1822.175mil|Absolute=True">Hole Size Constraint: (118.1mil &gt; 100mil) Pad Free-6(5650mil,1762.5mil) on Multi-Layer Actual Hole Size = 118.1mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5590.325mil|Location2.X=5709.675mil|Location1.Y=3502.825mil|Location2.Y=3622.175mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5590.325mil|Location2.X=5709.675mil|Location1.Y=3502.825mil|Location2.Y=3622.175mil|Absolute=True">Hole Size Constraint: (118.1mil &gt; 100mil) Pad Free-6(5650mil,3562.5mil) on Multi-Layer Actual Hole Size = 118.1mil</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDFBL5FB4NUEPHKJLEBQEB3GA24OQA4Z4GZLUQV1N2QW2VCYCVHA0"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=6mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4861.582mil|Location2.X=4868.832mil|Location1.Y=2671.375mil|Location2.Y=2678.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4861.582mil|Location2.X=4868.832mil|Location1.Y=2671.375mil|Location2.Y=2678.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.681mil &lt; 6mil) Between Pad 8M-3(4834.744mil,2696.26mil) on Top sig + 3V3 And Pad ROM-1(4896.654mil,2675mil) on Top sig + 3V3 [Top Solder] Mask Sliver [5.681mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3889.826mil|Location2.X=3897.811mil|Location1.Y=2364.826mil|Location2.Y=2372.881mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3889.826mil|Location2.X=3897.811mil|Location1.Y=2364.826mil|Location2.Y=2372.881mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.564mil &lt; 6mil) Between Pad DC5-2(3909.941mil,2350mil) on Top sig + 3V3 And Pad VCAP1-1(3875mil,2384.941mil) on Top sig + 3V3 [Top Solder] Mask Sliver [4.564mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2314.647mil|Location2.X=2321.897mil|Location1.Y=3168.619mil|Location2.Y=3175.869mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2314.647mil|Location2.X=2321.897mil|Location1.Y=3168.619mil|Location2.Y=3175.869mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.811mil &lt; 6mil) Between Pad J1-1(2265.059mil,3187.992mil) on Top sig + 3V3 And Pad J1-2(2265.059mil,3156.496mil) on Top sig + 3V3 [Top Solder] Mask Sliver [3.811mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2208.222mil|Location2.X=2215.472mil|Location1.Y=3137.123mil|Location2.Y=3144.373mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2208.222mil|Location2.X=2215.472mil|Location1.Y=3137.123mil|Location2.Y=3144.373mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.811mil &lt; 6mil) Between Pad J1-2(2265.059mil,3156.496mil) on Top sig + 3V3 And Pad J1-3(2265.059mil,3125mil) on Top sig + 3V3 [Top Solder] Mask Sliver [3.811mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2314.647mil|Location2.X=2321.897mil|Location1.Y=3105.627mil|Location2.Y=3112.877mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2314.647mil|Location2.X=2321.897mil|Location1.Y=3105.627mil|Location2.Y=3112.877mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.811mil &lt; 6mil) Between Pad J1-3(2265.059mil,3125mil) on Top sig + 3V3 And Pad J1-4(2265.059mil,3093.504mil) on Top sig + 3V3 [Top Solder] Mask Sliver [3.811mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2208.222mil|Location2.X=2215.472mil|Location1.Y=3074.131mil|Location2.Y=3081.381mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2208.222mil|Location2.X=2215.472mil|Location1.Y=3074.131mil|Location2.Y=3081.381mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.811mil &lt; 6mil) Between Pad J1-4(2265.059mil,3093.504mil) on Top sig + 3V3 And Pad J1-5(2265.059mil,3062.008mil) on Top sig + 3V3 [Top Solder] Mask Sliver [3.811mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=3159.761mil|Location2.Y=3167.011mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=3159.761mil|Location2.Y=3167.011mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad SD1-1(5763.091mil,3185.039mil) on Top sig + 3V3 And Pad SD1-2(5763.091mil,3141.732mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=2860.548mil|Location2.Y=2867.798mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=2860.548mil|Location2.Y=2867.798mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad SD1-12(5749.311mil,2836.22mil) on Top sig + 3V3 And Pad SD1-8(5763.091mil,2883.858mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=3116.454mil|Location2.Y=3123.704mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=3116.454mil|Location2.Y=3123.704mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad SD1-2(5763.091mil,3141.732mil) on Top sig + 3V3 And Pad SD1-3(5763.091mil,3098.425mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=3073.147mil|Location2.Y=3080.397mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=3073.147mil|Location2.Y=3080.397mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad SD1-3(5763.091mil,3098.425mil) on Top sig + 3V3 And Pad SD1-4(5763.091mil,3055.118mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=3029.84mil|Location2.Y=3037.09mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=3029.84mil|Location2.Y=3037.09mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad SD1-4(5763.091mil,3055.118mil) on Top sig + 3V3 And Pad SD1-5(5763.091mil,3011.811mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=2986.532mil|Location2.Y=2993.782mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=2986.532mil|Location2.Y=2993.782mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad SD1-5(5763.091mil,3011.811mil) on Top sig + 3V3 And Pad SD1-6(5763.091mil,2968.504mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=2943.225mil|Location2.Y=2950.475mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=2943.225mil|Location2.Y=2950.475mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad SD1-6(5763.091mil,2968.504mil) on Top sig + 3V3 And Pad SD1-7(5763.091mil,2925.197mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=2899.918mil|Location2.Y=2907.168mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5785.119mil|Location2.X=5792.369mil|Location1.Y=2899.918mil|Location2.Y=2907.168mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad SD1-7(5763.091mil,2925.197mil) on Top sig + 3V3 And Pad SD1-8(5763.091mil,2883.858mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2432.497mil|Location2.Y=2439.747mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2432.497mil|Location2.Y=2439.747mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-1(4546.26mil,2426.28mil) on Top sig + 3V3 And Pad U1-2(4546.26mil,2445.965mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2609.662mil|Location2.Y=2616.912mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2609.662mil|Location2.Y=2616.912mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-10(4546.26mil,2603.445mil) on Top sig + 3V3 And Pad U1-11(4546.26mil,2623.13mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2589.977mil|Location2.Y=2597.227mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2589.977mil|Location2.Y=2597.227mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-10(4546.26mil,2603.445mil) on Top sig + 3V3 And Pad U1-9(4546.26mil,2583.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4472.753mil|Location2.X=4480.003mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4472.753mil|Location2.X=4480.003mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-100(4486.22mil,2366.24mil) on Top sig + 3V3 And Pad U1-99(4466.535mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2629.347mil|Location2.Y=2636.597mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2629.347mil|Location2.Y=2636.597mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-11(4546.26mil,2623.13mil) on Top sig + 3V3 And Pad U1-12(4546.26mil,2642.815mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2649.032mil|Location2.Y=2656.282mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2649.032mil|Location2.Y=2656.282mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-12(4546.26mil,2642.815mil) on Top sig + 3V3 And Pad U1-13(4546.26mil,2662.5mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2668.717mil|Location2.Y=2675.967mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2668.717mil|Location2.Y=2675.967mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-13(4546.26mil,2662.5mil) on Top sig + 3V3 And Pad U1-14(4546.26mil,2682.185mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2688.402mil|Location2.Y=2695.652mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2688.402mil|Location2.Y=2695.652mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-14(4546.26mil,2682.185mil) on Top sig + 3V3 And Pad U1-15(4546.26mil,2701.87mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2708.088mil|Location2.Y=2715.338mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2708.088mil|Location2.Y=2715.338mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-15(4546.26mil,2701.87mil) on Top sig + 3V3 And Pad U1-16(4546.26mil,2721.555mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2727.773mil|Location2.Y=2735.023mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2727.773mil|Location2.Y=2735.023mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-16(4546.26mil,2721.555mil) on Top sig + 3V3 And Pad U1-17(4546.26mil,2741.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2747.457mil|Location2.Y=2754.707mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2747.457mil|Location2.Y=2754.707mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-17(4546.26mil,2741.24mil) on Top sig + 3V3 And Pad U1-18(4546.26mil,2760.925mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2767.143mil|Location2.Y=2774.393mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2767.143mil|Location2.Y=2774.393mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-18(4546.26mil,2760.925mil) on Top sig + 3V3 And Pad U1-19(4546.26mil,2780.61mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2786.828mil|Location2.Y=2794.078mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2786.828mil|Location2.Y=2794.078mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-19(4546.26mil,2780.61mil) on Top sig + 3V3 And Pad U1-20(4546.26mil,2800.295mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2452.182mil|Location2.Y=2459.432mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2452.182mil|Location2.Y=2459.432mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-2(4546.26mil,2445.965mil) on Top sig + 3V3 And Pad U1-3(4546.26mil,2465.649mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2806.513mil|Location2.Y=2813.763mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2806.513mil|Location2.Y=2813.763mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-20(4546.26mil,2800.295mil) on Top sig + 3V3 And Pad U1-21(4546.26mil,2819.98mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2826.198mil|Location2.Y=2833.448mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2826.198mil|Location2.Y=2833.448mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-21(4546.26mil,2819.98mil) on Top sig + 3V3 And Pad U1-22(4546.26mil,2839.665mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2845.883mil|Location2.Y=2853.133mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2845.883mil|Location2.Y=2853.133mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-22(4546.26mil,2839.665mil) on Top sig + 3V3 And Pad U1-23(4546.26mil,2859.35mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2865.568mil|Location2.Y=2872.818mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2865.568mil|Location2.Y=2872.818mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-23(4546.26mil,2859.35mil) on Top sig + 3V3 And Pad U1-24(4546.26mil,2879.035mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2885.253mil|Location2.Y=2892.503mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2885.253mil|Location2.Y=2892.503mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-24(4546.26mil,2879.035mil) on Top sig + 3V3 And Pad U1-25(4546.26mil,2898.72mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4472.753mil|Location2.X=4480.003mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4472.753mil|Location2.X=4480.003mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-26(4486.22mil,2958.76mil) on Top sig + 3V3 And Pad U1-27(4466.535mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4453.068mil|Location2.X=4460.318mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4453.068mil|Location2.X=4460.318mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-27(4466.535mil,2958.76mil) on Top sig + 3V3 And Pad U1-28(4446.85mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4433.383mil|Location2.X=4440.633mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4433.383mil|Location2.X=4440.633mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-28(4446.85mil,2958.76mil) on Top sig + 3V3 And Pad U1-29(4427.165mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4413.698mil|Location2.X=4420.948mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4413.698mil|Location2.X=4420.948mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-29(4427.165mil,2958.76mil) on Top sig + 3V3 And Pad U1-30(4407.48mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2471.867mil|Location2.Y=2479.117mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2471.867mil|Location2.Y=2479.117mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-3(4546.26mil,2465.649mil) on Top sig + 3V3 And Pad U1-4(4546.26mil,2485.335mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4394.013mil|Location2.X=4401.263mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4394.013mil|Location2.X=4401.263mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-30(4407.48mil,2958.76mil) on Top sig + 3V3 And Pad U1-31(4387.795mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4374.328mil|Location2.X=4381.578mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4374.328mil|Location2.X=4381.578mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-31(4387.795mil,2958.76mil) on Top sig + 3V3 And Pad U1-32(4368.11mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4354.643mil|Location2.X=4361.893mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4354.643mil|Location2.X=4361.893mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-32(4368.11mil,2958.76mil) on Top sig + 3V3 And Pad U1-33(4348.425mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4334.958mil|Location2.X=4342.208mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4334.958mil|Location2.X=4342.208mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-33(4348.425mil,2958.76mil) on Top sig + 3V3 And Pad U1-34(4328.74mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4315.273mil|Location2.X=4322.523mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4315.273mil|Location2.X=4322.523mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-34(4328.74mil,2958.76mil) on Top sig + 3V3 And Pad U1-35(4309.055mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4295.587mil|Location2.X=4302.837mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4295.587mil|Location2.X=4302.837mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-35(4309.055mil,2958.76mil) on Top sig + 3V3 And Pad U1-36(4289.37mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4275.902mil|Location2.X=4283.152mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4275.902mil|Location2.X=4283.152mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-36(4289.37mil,2958.76mil) on Top sig + 3V3 And Pad U1-37(4269.685mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4256.217mil|Location2.X=4263.467mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4256.217mil|Location2.X=4263.467mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-37(4269.685mil,2958.76mil) on Top sig + 3V3 And Pad U1-38(4250mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4236.532mil|Location2.X=4243.782mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4236.532mil|Location2.X=4243.782mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-38(4250mil,2958.76mil) on Top sig + 3V3 And Pad U1-39(4230.315mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4216.847mil|Location2.X=4224.097mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4216.847mil|Location2.X=4224.097mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-39(4230.315mil,2958.76mil) on Top sig + 3V3 And Pad U1-40(4210.63mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2491.552mil|Location2.Y=2498.802mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2491.552mil|Location2.Y=2498.802mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-4(4546.26mil,2485.335mil) on Top sig + 3V3 And Pad U1-5(4546.26mil,2505.02mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4197.162mil|Location2.X=4204.412mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4197.162mil|Location2.X=4204.412mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-40(4210.63mil,2958.76mil) on Top sig + 3V3 And Pad U1-41(4190.945mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4177.477mil|Location2.X=4184.727mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4177.477mil|Location2.X=4184.727mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-41(4190.945mil,2958.76mil) on Top sig + 3V3 And Pad U1-42(4171.26mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4157.792mil|Location2.X=4165.042mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4157.792mil|Location2.X=4165.042mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-42(4171.26mil,2958.76mil) on Top sig + 3V3 And Pad U1-43(4151.575mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4138.107mil|Location2.X=4145.357mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4138.107mil|Location2.X=4145.357mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-43(4151.575mil,2958.76mil) on Top sig + 3V3 And Pad U1-44(4131.89mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4118.422mil|Location2.X=4125.672mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4118.422mil|Location2.X=4125.672mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-44(4131.89mil,2958.76mil) on Top sig + 3V3 And Pad U1-45(4112.205mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4098.737mil|Location2.X=4105.987mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4098.737mil|Location2.X=4105.987mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-45(4112.205mil,2958.76mil) on Top sig + 3V3 And Pad U1-46(4092.52mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4079.052mil|Location2.X=4086.302mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4079.052mil|Location2.X=4086.302mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-46(4092.52mil,2958.76mil) on Top sig + 3V3 And Pad U1-47(4072.835mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4059.367mil|Location2.X=4066.617mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4059.367mil|Location2.X=4066.617mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-47(4072.835mil,2958.76mil) on Top sig + 3V3 And Pad U1-48(4053.15mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4039.682mil|Location2.X=4046.932mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4039.682mil|Location2.X=4046.932mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-48(4053.15mil,2958.76mil) on Top sig + 3V3 And Pad U1-49(4033.465mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4019.997mil|Location2.X=4027.247mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4019.997mil|Location2.X=4027.247mil|Location1.Y=2980.725mil|Location2.Y=2987.975mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-49(4033.465mil,2958.76mil) on Top sig + 3V3 And Pad U1-50(4013.78mil,2958.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2511.237mil|Location2.Y=2518.487mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2511.237mil|Location2.Y=2518.487mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-5(4546.26mil,2505.02mil) on Top sig + 3V3 And Pad U1-6(4546.26mil,2524.705mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2885.253mil|Location2.Y=2892.503mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2885.253mil|Location2.Y=2892.503mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-51(3953.74mil,2898.72mil) on Top sig + 3V3 And Pad U1-52(3953.74mil,2879.035mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2865.568mil|Location2.Y=2872.818mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2865.568mil|Location2.Y=2872.818mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-52(3953.74mil,2879.035mil) on Top sig + 3V3 And Pad U1-53(3953.74mil,2859.35mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2845.883mil|Location2.Y=2853.133mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2845.883mil|Location2.Y=2853.133mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-53(3953.74mil,2859.35mil) on Top sig + 3V3 And Pad U1-54(3953.74mil,2839.665mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2826.198mil|Location2.Y=2833.448mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2826.198mil|Location2.Y=2833.448mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-54(3953.74mil,2839.665mil) on Top sig + 3V3 And Pad U1-55(3953.74mil,2819.98mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2806.513mil|Location2.Y=2813.763mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2806.513mil|Location2.Y=2813.763mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-55(3953.74mil,2819.98mil) on Top sig + 3V3 And Pad U1-56(3953.74mil,2800.295mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2786.828mil|Location2.Y=2794.078mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2786.828mil|Location2.Y=2794.078mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-56(3953.74mil,2800.295mil) on Top sig + 3V3 And Pad U1-57(3953.74mil,2780.61mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2767.143mil|Location2.Y=2774.393mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2767.143mil|Location2.Y=2774.393mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-57(3953.74mil,2780.61mil) on Top sig + 3V3 And Pad U1-58(3953.74mil,2760.925mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2747.457mil|Location2.Y=2754.707mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2747.457mil|Location2.Y=2754.707mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-58(3953.74mil,2760.925mil) on Top sig + 3V3 And Pad U1-59(3953.74mil,2741.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2727.773mil|Location2.Y=2735.023mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2727.773mil|Location2.Y=2735.023mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-59(3953.74mil,2741.24mil) on Top sig + 3V3 And Pad U1-60(3953.74mil,2721.555mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2530.922mil|Location2.Y=2538.172mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2530.922mil|Location2.Y=2538.172mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-6(4546.26mil,2524.705mil) on Top sig + 3V3 And Pad U1-7(4546.26mil,2544.39mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2708.088mil|Location2.Y=2715.338mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2708.088mil|Location2.Y=2715.338mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-60(3953.74mil,2721.555mil) on Top sig + 3V3 And Pad U1-61(3953.74mil,2701.87mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2688.402mil|Location2.Y=2695.652mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2688.402mil|Location2.Y=2695.652mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-61(3953.74mil,2701.87mil) on Top sig + 3V3 And Pad U1-62(3953.74mil,2682.185mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2668.717mil|Location2.Y=2675.967mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2668.717mil|Location2.Y=2675.967mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-62(3953.74mil,2682.185mil) on Top sig + 3V3 And Pad U1-63(3953.74mil,2662.5mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2649.032mil|Location2.Y=2656.282mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2649.032mil|Location2.Y=2656.282mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-63(3953.74mil,2662.5mil) on Top sig + 3V3 And Pad U1-64(3953.74mil,2642.815mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2629.347mil|Location2.Y=2636.597mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2629.347mil|Location2.Y=2636.597mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-64(3953.74mil,2642.815mil) on Top sig + 3V3 And Pad U1-65(3953.74mil,2623.13mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2609.662mil|Location2.Y=2616.912mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2609.662mil|Location2.Y=2616.912mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-65(3953.74mil,2623.13mil) on Top sig + 3V3 And Pad U1-66(3953.74mil,2603.445mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2589.977mil|Location2.Y=2597.227mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2589.977mil|Location2.Y=2597.227mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-66(3953.74mil,2603.445mil) on Top sig + 3V3 And Pad U1-67(3953.74mil,2583.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2570.292mil|Location2.Y=2577.542mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2570.292mil|Location2.Y=2577.542mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-67(3953.74mil,2583.76mil) on Top sig + 3V3 And Pad U1-68(3953.74mil,2564.075mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2550.607mil|Location2.Y=2557.857mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2550.607mil|Location2.Y=2557.857mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-68(3953.74mil,2564.075mil) on Top sig + 3V3 And Pad U1-69(3953.74mil,2544.39mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2530.922mil|Location2.Y=2538.172mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2530.922mil|Location2.Y=2538.172mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-69(3953.74mil,2544.39mil) on Top sig + 3V3 And Pad U1-70(3953.74mil,2524.705mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2550.607mil|Location2.Y=2557.857mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2550.607mil|Location2.Y=2557.857mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-7(4546.26mil,2544.39mil) on Top sig + 3V3 And Pad U1-8(4546.26mil,2564.075mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2511.237mil|Location2.Y=2518.487mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2511.237mil|Location2.Y=2518.487mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-70(3953.74mil,2524.705mil) on Top sig + 3V3 And Pad U1-71(3953.74mil,2505.02mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2491.552mil|Location2.Y=2498.802mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2491.552mil|Location2.Y=2498.802mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-71(3953.74mil,2505.02mil) on Top sig + 3V3 And Pad U1-72(3953.74mil,2485.335mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2471.867mil|Location2.Y=2479.117mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2471.867mil|Location2.Y=2479.117mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-72(3953.74mil,2485.335mil) on Top sig + 3V3 And Pad U1-73(3953.74mil,2465.649mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2452.182mil|Location2.Y=2459.432mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2452.182mil|Location2.Y=2459.432mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-73(3953.74mil,2465.649mil) on Top sig + 3V3 And Pad U1-74(3953.74mil,2445.965mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2432.497mil|Location2.Y=2439.747mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.525mil|Location2.X=3931.775mil|Location1.Y=2432.497mil|Location2.Y=2439.747mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-74(3953.74mil,2445.965mil) on Top sig + 3V3 And Pad U1-75(3953.74mil,2426.28mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4019.997mil|Location2.X=4027.247mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4019.997mil|Location2.X=4027.247mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-76(4013.78mil,2366.24mil) on Top sig + 3V3 And Pad U1-77(4033.465mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4039.682mil|Location2.X=4046.932mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4039.682mil|Location2.X=4046.932mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-77(4033.465mil,2366.24mil) on Top sig + 3V3 And Pad U1-78(4053.15mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4059.367mil|Location2.X=4066.617mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4059.367mil|Location2.X=4066.617mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-78(4053.15mil,2366.24mil) on Top sig + 3V3 And Pad U1-79(4072.835mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4079.052mil|Location2.X=4086.302mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4079.052mil|Location2.X=4086.302mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-79(4072.835mil,2366.24mil) on Top sig + 3V3 And Pad U1-80(4092.52mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2570.292mil|Location2.Y=2577.542mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.044mil|Location2.X=4524.294mil|Location1.Y=2570.292mil|Location2.Y=2577.542mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-8(4546.26mil,2564.075mil) on Top sig + 3V3 And Pad U1-9(4546.26mil,2583.76mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4098.737mil|Location2.X=4105.987mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4098.737mil|Location2.X=4105.987mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-80(4092.52mil,2366.24mil) on Top sig + 3V3 And Pad U1-81(4112.205mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4118.422mil|Location2.X=4125.672mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4118.422mil|Location2.X=4125.672mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-81(4112.205mil,2366.24mil) on Top sig + 3V3 And Pad U1-82(4131.89mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4138.107mil|Location2.X=4145.357mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4138.107mil|Location2.X=4145.357mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-82(4131.89mil,2366.24mil) on Top sig + 3V3 And Pad U1-83(4151.575mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4157.792mil|Location2.X=4165.042mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4157.792mil|Location2.X=4165.042mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-83(4151.575mil,2366.24mil) on Top sig + 3V3 And Pad U1-84(4171.26mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4177.477mil|Location2.X=4184.727mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4177.477mil|Location2.X=4184.727mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-84(4171.26mil,2366.24mil) on Top sig + 3V3 And Pad U1-85(4190.945mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4197.162mil|Location2.X=4204.412mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4197.162mil|Location2.X=4204.412mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-85(4190.945mil,2366.24mil) on Top sig + 3V3 And Pad U1-86(4210.63mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4216.847mil|Location2.X=4224.097mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4216.847mil|Location2.X=4224.097mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-86(4210.63mil,2366.24mil) on Top sig + 3V3 And Pad U1-87(4230.315mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4236.532mil|Location2.X=4243.782mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4236.532mil|Location2.X=4243.782mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-87(4230.315mil,2366.24mil) on Top sig + 3V3 And Pad U1-88(4250mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4256.217mil|Location2.X=4263.467mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4256.217mil|Location2.X=4263.467mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-88(4250mil,2366.24mil) on Top sig + 3V3 And Pad U1-89(4269.685mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4275.902mil|Location2.X=4283.152mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4275.902mil|Location2.X=4283.152mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-89(4269.685mil,2366.24mil) on Top sig + 3V3 And Pad U1-90(4289.37mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4295.587mil|Location2.X=4302.837mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4295.587mil|Location2.X=4302.837mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-90(4289.37mil,2366.24mil) on Top sig + 3V3 And Pad U1-91(4309.055mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4315.273mil|Location2.X=4322.523mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4315.273mil|Location2.X=4322.523mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-91(4309.055mil,2366.24mil) on Top sig + 3V3 And Pad U1-92(4328.74mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4334.958mil|Location2.X=4342.208mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4334.958mil|Location2.X=4342.208mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-92(4328.74mil,2366.24mil) on Top sig + 3V3 And Pad U1-93(4348.425mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4354.643mil|Location2.X=4361.893mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4354.643mil|Location2.X=4361.893mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-93(4348.425mil,2366.24mil) on Top sig + 3V3 And Pad U1-94(4368.11mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4374.328mil|Location2.X=4381.578mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4374.328mil|Location2.X=4381.578mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-94(4368.11mil,2366.24mil) on Top sig + 3V3 And Pad U1-95(4387.795mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4394.013mil|Location2.X=4401.263mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4394.013mil|Location2.X=4401.263mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-95(4387.795mil,2366.24mil) on Top sig + 3V3 And Pad U1-96(4407.48mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4413.698mil|Location2.X=4420.948mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4413.698mil|Location2.X=4420.948mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-96(4407.48mil,2366.24mil) on Top sig + 3V3 And Pad U1-97(4427.165mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4433.383mil|Location2.X=4440.633mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4433.383mil|Location2.X=4440.633mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 6mil) Between Pad U1-97(4427.165mil,2366.24mil) on Top sig + 3V3 And Pad U1-98(4446.85mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4453.068mil|Location2.X=4460.318mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4453.068mil|Location2.X=4460.318mil|Location1.Y=2388.206mil|Location2.Y=2395.456mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.842mil &lt; 6mil) Between Pad U1-98(4446.85mil,2366.24mil) on Top sig + 3V3 And Pad U1-99(4466.535mil,2366.24mil) on Top sig + 3V3 [Top Solder] Mask Sliver [1.842mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID2ZEK5IQSD4BOHX0Q0YXU5XPN4M0WIVQGU2DLTGKQFMWHNJKOBNMB"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=6mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3329.685mil|Location2.X=3334.685mil|Location1.Y=3446.516mil|Location2.Y=3451.516mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3329.685mil|Location2.X=3334.685mil|Location1.Y=3446.516mil|Location2.Y=3451.516mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Arc (3327.461mil,3447.638mil) on Top Overlay And Pad NEO2-4(3327.461mil,3478.543mil) on Top sig + 3V3 [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3482.497mil|Location2.X=3489.747mil|Location1.Y=1699.82mil|Location2.Y=1707.07mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3482.497mil|Location2.X=3489.747mil|Location1.Y=1699.82mil|Location2.Y=1707.07mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.59mil &lt; 6mil) Between Arc (3475.984mil,1703.445mil) on Top Overlay And Pad CAN2_CONN-5(3545.472mil,1663.287mil) on Top sig + 3V3 [Top Overlay] to [Top Solder] clearance [0.59mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3824.483mil|Location2.X=3829.483mil|Location1.Y=2735mil|Location2.Y=2740mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3824.483mil|Location2.X=3829.483mil|Location1.Y=2735mil|Location2.Y=2740mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Arc (3822.061mil,2737.5mil) on Top Overlay And Pad RAM1_PU-2(3837.5mil,2745.472mil) on Top sig + 3V3 [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4293.129mil|Location2.X=4300.379mil|Location1.Y=2258.875mil|Location2.Y=2266.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4293.129mil|Location2.X=4300.379mil|Location1.Y=2258.875mil|Location2.Y=2266.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.854mil &lt; 6mil) Between Arc (4309.524mil,2262.5mil) on Top Overlay And Pad CAN2-8(4250.429mil,2262.5mil) on Top sig + 3V3 [Top Overlay] to [Top Solder] clearance [5.854mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2174.716mil|Location2.X=2181.966mil|Location1.Y=2840.862mil|Location2.Y=2848.112mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2174.716mil|Location2.X=2181.966mil|Location1.Y=2840.862mil|Location2.Y=2848.112mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.981mil &lt; 6mil) Between Pad 5V_STAT-2(2159.055mil,2812.5mil) on Top sig + 3V3 And Region (0 hole(s)) Top Overlay [Top Overlay] to [Top Solder] clearance [0.981mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3781.101mil|Location2.X=3786.101mil|Location1.Y=1693.969mil|Location2.Y=1698.969mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3781.101mil|Location2.X=3786.101mil|Location1.Y=1693.969mil|Location2.Y=1698.969mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad CAN1_CONN-5(3770.472mil,1663.287mil) on Top sig + 3V3 And Text "CAN1_CONN" (3816.399mil,1670.231mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3813.899mil|Location2.X=3818.899mil|Location1.Y=1962.911mil|Location2.Y=1967.911mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3813.899mil|Location2.X=3818.899mil|Location1.Y=1962.911mil|Location2.Y=1967.911mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad CAN1_CONN-6(3770.472mil,2011.713mil) on Top sig + 3V3 And Text "CAN1_CONN" (3816.399mil,1670.231mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4445.44mil|Location2.X=4452.69mil|Location1.Y=2081.316mil|Location2.Y=2088.566mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4445.44mil|Location2.X=4452.69mil|Location1.Y=2081.316mil|Location2.Y=2088.566mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.331mil &lt; 6mil) Between Pad CAN1TERM1-2(4468.75mil,2067.028mil) on Top sig + 3V3 And Track (4437.651mil,2091.043mil)(4512.349mil,2091.043mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.331mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4501.69mil|Location2.X=4508.94mil|Location1.Y=2081.316mil|Location2.Y=2088.566mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4501.69mil|Location2.X=4508.94mil|Location1.Y=2081.316mil|Location2.Y=2088.566mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.331mil &lt; 6mil) Between Pad CAN1TERM2-1(4525mil,2067.028mil) on Top sig + 3V3 And Track (4437.651mil,2091.043mil)(4512.349mil,2091.043mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.331mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4508.724mil|Location2.X=4515.974mil|Location1.Y=2081.316mil|Location2.Y=2088.566mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4508.724mil|Location2.X=4515.974mil|Location1.Y=2081.316mil|Location2.Y=2088.566mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.331mil &lt; 6mil) Between Pad CAN1TERM2-1(4525mil,2067.028mil) on Top sig + 3V3 And Track (4512.349mil,2091.043mil)(4512.349mil,2283.957mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.331mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3556.101mil|Location2.X=3561.101mil|Location1.Y=1690.689mil|Location2.Y=1695.689mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3556.101mil|Location2.X=3561.101mil|Location1.Y=1690.689mil|Location2.Y=1695.689mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad CAN2_CONN-5(3545.472mil,1663.287mil) on Top sig + 3V3 And Text "CAN2_CONN" (3591.399mil,1666.951mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3588.899mil|Location2.X=3593.899mil|Location1.Y=1966.191mil|Location2.Y=1971.191mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3588.899mil|Location2.X=3593.899mil|Location1.Y=1966.191mil|Location2.Y=1971.191mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad CAN2_CONN-6(3545.472mil,2011.713mil) on Top sig + 3V3 And Text "CAN2_CONN" (3591.399mil,1666.951mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4119.142mil|Location2.X=4126.392mil|Location1.Y=2081.316mil|Location2.Y=2088.566mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4119.142mil|Location2.X=4126.392mil|Location1.Y=2081.316mil|Location2.Y=2088.566mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.331mil &lt; 6mil) Between Pad CAN2TERM1-2(4142.452mil,2067.028mil) on Top sig + 3V3 And Track (4112.651mil,2091.043mil)(4187.349mil,2091.043mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.331mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4176.69mil|Location2.X=4183.94mil|Location1.Y=2081.316mil|Location2.Y=2088.566mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4176.69mil|Location2.X=4183.94mil|Location1.Y=2081.316mil|Location2.Y=2088.566mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.331mil &lt; 6mil) Between Pad CAN2TERM2-1(4200mil,2067.028mil) on Top sig + 3V3 And Track (4112.651mil,2091.043mil)(4187.349mil,2091.043mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.331mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4183.724mil|Location2.X=4190.974mil|Location1.Y=2081.316mil|Location2.Y=2088.566mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4183.724mil|Location2.X=4190.974mil|Location1.Y=2081.316mil|Location2.Y=2088.566mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.331mil &lt; 6mil) Between Pad CAN2TERM2-1(4200mil,2067.028mil) on Top sig + 3V3 And Track (4187.349mil,2091.043mil)(4187.349mil,2283.957mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.331mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2669.149mil|Location2.X=2676.399mil|Location1.Y=3585.092mil|Location2.Y=3592.342mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2669.149mil|Location2.X=2676.399mil|Location1.Y=3585.092mil|Location2.Y=3592.342mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.077mil &lt; 6mil) Between Pad CORTEX-01(2675mil,3637.5mil) on Top sig + 3V3 And Text "CORTEX" (2475.987mil,3542.821mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.077mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2606.414mil|Location2.X=2613.664mil|Location1.Y=3585.092mil|Location2.Y=3592.342mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2606.414mil|Location2.X=2613.664mil|Location1.Y=3585.092mil|Location2.Y=3592.342mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.077mil &lt; 6mil) Between Pad CORTEX-03(2625mil,3637.5mil) on Top sig + 3V3 And Text "CORTEX" (2475.987mil,3542.821mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.077mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2556.414mil|Location2.X=2563.664mil|Location1.Y=3585.092mil|Location2.Y=3592.342mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2556.414mil|Location2.X=2563.664mil|Location1.Y=3585.092mil|Location2.Y=3592.342mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.077mil &lt; 6mil) Between Pad CORTEX-05(2575mil,3637.5mil) on Top sig + 3V3 And Text "CORTEX" (2475.987mil,3542.821mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.077mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2531.398mil|Location2.X=2538.648mil|Location1.Y=3585.092mil|Location2.Y=3592.342mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2531.398mil|Location2.X=2538.648mil|Location1.Y=3585.092mil|Location2.Y=3592.342mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.077mil &lt; 6mil) Between Pad CORTEX-07(2525mil,3637.5mil) on Top sig + 3V3 And Text "CORTEX" (2475.987mil,3542.821mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.077mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2486.336mil|Location2.X=2493.586mil|Location1.Y=3585.092mil|Location2.Y=3592.342mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2486.336mil|Location2.X=2493.586mil|Location1.Y=3585.092mil|Location2.Y=3592.342mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.077mil &lt; 6mil) Between Pad CORTEX-09(2475mil,3637.5mil) on Top sig + 3V3 And Text "CORTEX" (2475.987mil,3542.821mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.077mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2958.5mil|Location2.X=2963.5mil|Location1.Y=2331.202mil|Location2.Y=2336.202mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2958.5mil|Location2.X=2963.5mil|Location1.Y=2331.202mil|Location2.Y=2336.202mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad LT1054-1(2972mil,2337.5mil) on Top sig + 3V3 And Text "*" (2961mil,2366.5mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4830.488mil|Location2.X=4835.488mil|Location1.Y=3380.162mil|Location2.Y=3385.162mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4830.488mil|Location2.X=4835.488mil|Location1.Y=3380.162mil|Location2.Y=3385.162mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG10-3(4795.472mil,3408.366mil) on Top sig + 3V3 And Text "SG10" (4795.497mil,3404.207mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4828.233mil|Location2.X=4833.233mil|Location1.Y=3287.756mil|Location2.Y=3292.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4828.233mil|Location2.X=4833.233mil|Location1.Y=3287.756mil|Location2.Y=3292.756mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG10-4(4795.472mil,3266.634mil) on Top sig + 3V3 And Text "SG10" (4795.497mil,3404.207mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5007.354mil|Location2.X=5012.354mil|Location1.Y=3182.244mil|Location2.Y=3187.244mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5007.354mil|Location2.X=5012.354mil|Location1.Y=3182.244mil|Location2.Y=3187.244mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG11-3(4970.472mil,3208.366mil) on Top sig + 3V3 And Text "SG11" (4970.497mil,3197.647mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4967.997mil|Location2.X=4972.997mil|Location1.Y=3083.634mil|Location2.Y=3088.634mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4967.997mil|Location2.X=4972.997mil|Location1.Y=3083.634mil|Location2.Y=3088.634mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG11-4(4970.472mil,3066.634mil) on Top sig + 3V3 And Text "SG11" (4970.497mil,3197.647mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5005.488mil|Location2.X=5010.488mil|Location1.Y=3380.162mil|Location2.Y=3385.162mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5005.488mil|Location2.X=5010.488mil|Location1.Y=3380.162mil|Location2.Y=3385.162mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG12-3(4970.472mil,3408.366mil) on Top sig + 3V3 And Text "SG12" (4970.497mil,3404.207mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4967.997mil|Location2.X=4972.997mil|Location1.Y=3263.956mil|Location2.Y=3268.956mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4967.997mil|Location2.X=4972.997mil|Location1.Y=3263.956mil|Location2.Y=3268.956mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG12-4(4970.472mil,3266.634mil) on Top sig + 3V3 And Text "SG12" (4970.497mil,3404.207mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4125.794mil|Location2.X=4130.794mil|Location1.Y=3178.748mil|Location2.Y=3183.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4125.794mil|Location2.X=4130.794mil|Location1.Y=3178.748mil|Location2.Y=3183.748mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG1-3(4095.472mil,3208.366mil) on Top sig + 3V3 And Text "SG1" (4095.497mil,3181.248mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4092.997mil|Location2.X=4097.997mil|Location1.Y=3087.756mil|Location2.Y=3092.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4092.997mil|Location2.X=4097.997mil|Location1.Y=3087.756mil|Location2.Y=3092.756mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG1-4(4095.472mil,3066.634mil) on Top sig + 3V3 And Text "SG1" (4095.497mil,3181.248mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4128.632mil|Location2.X=4133.632mil|Location1.Y=3382.47mil|Location2.Y=3387.47mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4128.632mil|Location2.X=4133.632mil|Location1.Y=3382.47mil|Location2.Y=3387.47mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG2-3(4095.472mil,3408.366mil) on Top sig + 3V3 And Text "SG2" (4095.497mil,3387.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4092.997mil|Location2.X=4097.997mil|Location1.Y=3280.355mil|Location2.Y=3285.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4092.997mil|Location2.X=4097.997mil|Location1.Y=3280.355mil|Location2.Y=3285.355mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG2-4(4095.472mil,3266.634mil) on Top sig + 3V3 And Text "SG2" (4095.497mil,3387.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4303.632mil|Location2.X=4308.632mil|Location1.Y=3182.47mil|Location2.Y=3187.47mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4303.632mil|Location2.X=4308.632mil|Location1.Y=3182.47mil|Location2.Y=3187.47mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG3-3(4270.472mil,3208.366mil) on Top sig + 3V3 And Text "SG3" (4270.497mil,3187.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4307.354mil|Location2.X=4312.354mil|Location1.Y=3087.756mil|Location2.Y=3092.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4307.354mil|Location2.X=4312.354mil|Location1.Y=3087.756mil|Location2.Y=3092.756mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG3-4(4270.472mil,3066.634mil) on Top sig + 3V3 And Text "SG3" (4270.497mil,3187.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4303.632mil|Location2.X=4308.632mil|Location1.Y=3382.47mil|Location2.Y=3387.47mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4303.632mil|Location2.X=4308.632mil|Location1.Y=3382.47mil|Location2.Y=3387.47mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG4-3(4270.472mil,3408.366mil) on Top sig + 3V3 And Text "SG4" (4270.497mil,3387.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4267.997mil|Location2.X=4272.997mil|Location1.Y=3286.914mil|Location2.Y=3291.914mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4267.997mil|Location2.X=4272.997mil|Location1.Y=3286.914mil|Location2.Y=3291.914mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG4-4(4270.472mil,3266.634mil) on Top sig + 3V3 And Text "SG4" (4270.497mil,3387.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4478.632mil|Location2.X=4483.632mil|Location1.Y=3182.47mil|Location2.Y=3187.47mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4478.632mil|Location2.X=4483.632mil|Location1.Y=3182.47mil|Location2.Y=3187.47mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG5-3(4445.472mil,3208.366mil) on Top sig + 3V3 And Text "SG5" (4445.497mil,3187.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4482.354mil|Location2.X=4487.354mil|Location1.Y=3087.756mil|Location2.Y=3092.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4482.354mil|Location2.X=4487.354mil|Location1.Y=3087.756mil|Location2.Y=3092.756mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG5-4(4445.472mil,3066.634mil) on Top sig + 3V3 And Text "SG5" (4445.497mil,3187.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4478.632mil|Location2.X=4483.632mil|Location1.Y=3382.47mil|Location2.Y=3387.47mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4478.632mil|Location2.X=4483.632mil|Location1.Y=3382.47mil|Location2.Y=3387.47mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG6-3(4445.472mil,3408.366mil) on Top sig + 3V3 And Text "SG6" (4445.497mil,3387.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4478.604mil|Location2.X=4483.604mil|Location1.Y=3287.855mil|Location2.Y=3292.855mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4478.604mil|Location2.X=4483.604mil|Location1.Y=3287.855mil|Location2.Y=3292.855mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG6-4(4445.472mil,3266.634mil) on Top sig + 3V3 And Text "SG6" (4445.497mil,3387.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4653.632mil|Location2.X=4658.632mil|Location1.Y=3182.47mil|Location2.Y=3187.47mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4653.632mil|Location2.X=4658.632mil|Location1.Y=3182.47mil|Location2.Y=3187.47mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG7-3(4620.472mil,3208.366mil) on Top sig + 3V3 And Text "SG7" (4620.497mil,3187.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.354mil|Location2.X=4662.354mil|Location1.Y=3087.756mil|Location2.Y=3092.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.354mil|Location2.X=4662.354mil|Location1.Y=3087.756mil|Location2.Y=3092.756mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG7-4(4620.472mil,3066.634mil) on Top sig + 3V3 And Text "SG7" (4620.497mil,3187.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4653.632mil|Location2.X=4658.632mil|Location1.Y=3382.47mil|Location2.Y=3387.47mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4653.632mil|Location2.X=4658.632mil|Location1.Y=3382.47mil|Location2.Y=3387.47mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG8-3(4620.472mil,3408.366mil) on Top sig + 3V3 And Text "SG8" (4620.497mil,3387.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.354mil|Location2.X=4662.354mil|Location1.Y=3287.756mil|Location2.Y=3292.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.354mil|Location2.X=4662.354mil|Location1.Y=3287.756mil|Location2.Y=3292.756mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG8-4(4620.472mil,3266.634mil) on Top sig + 3V3 And Text "SG8" (4620.497mil,3387.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4828.632mil|Location2.X=4833.632mil|Location1.Y=3182.47mil|Location2.Y=3187.47mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4828.632mil|Location2.X=4833.632mil|Location1.Y=3182.47mil|Location2.Y=3187.47mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG9-3(4795.472mil,3208.366mil) on Top sig + 3V3 And Text "SG9" (4795.497mil,3187.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4792.997mil|Location2.X=4797.997mil|Location1.Y=3087.756mil|Location2.Y=3092.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4792.997mil|Location2.X=4797.997mil|Location1.Y=3087.756mil|Location2.Y=3092.756mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SG9-4(4795.472mil,3066.634mil) on Top sig + 3V3 And Text "SG9" (4795.497mil,3187.808mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3117.781mil|Location2.X=3122.781mil|Location1.Y=1676.365mil|Location2.Y=1681.365mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3117.781mil|Location2.X=3122.781mil|Location1.Y=1676.365mil|Location2.Y=1681.365mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SGA_PWR-5(3120.472mil,1652.264mil) on Top sig + 3V3 And Text "SGA_PWR" (3149.799mil,1664.106mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3317.781mil|Location2.X=3322.781mil|Location1.Y=1676.365mil|Location2.Y=1681.365mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3317.781mil|Location2.X=3322.781mil|Location1.Y=1676.365mil|Location2.Y=1681.365mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SGA_PWR-5(3320.472mil,1652.264mil) on Top sig + 3V3 And Text "SGA_PWR" (3349.799mil,1664.106mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3117.781mil|Location2.X=3122.781mil|Location1.Y=1846.614mil|Location2.Y=1851.614mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3117.781mil|Location2.X=3122.781mil|Location1.Y=1846.614mil|Location2.Y=1851.614mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SGA_PWR-6(3120.472mil,1872.736mil) on Top sig + 3V3 And Text "SGA_PWR" (3149.799mil,1664.106mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3317.781mil|Location2.X=3322.781mil|Location1.Y=1846.614mil|Location2.Y=1851.614mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3317.781mil|Location2.X=3322.781mil|Location1.Y=1846.614mil|Location2.Y=1851.614mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad SGA_PWR-6(3320.472mil,1872.736mil) on Top sig + 3V3 And Text "SGA_PWR" (3349.799mil,1664.106mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDFWUCGUYWPOM5GMMTH2ZZ0RFPHGKQWFWUY1TCLOF1WT0UY4XHP45D"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=6mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4784.537mil|Location2.X=4791.787mil|Location1.Y=3354.544mil|Location2.Y=3361.794mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4784.537mil|Location2.X=4791.787mil|Location1.Y=3354.544mil|Location2.Y=3361.794mil|Absolute=True">Silk To Silk Clearance Constraint: (4.67mil &lt; 6mil) Between Arc (4775.984mil,3358.169mil) on Top Overlay And Text "SG10" (4795.497mil,3404.207mil) on Top Overlay Silk Text to Silk Clearance [4.67mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4959.415mil|Location2.X=4966.665mil|Location1.Y=3150.566mil|Location2.Y=3157.816mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4959.415mil|Location2.X=4966.665mil|Location1.Y=3150.566mil|Location2.Y=3157.816mil|Absolute=True">Silk To Silk Clearance Constraint: (5.705mil &lt; 6mil) Between Arc (4950.984mil,3158.169mil) on Top Overlay And Text "SG11" (4970.497mil,3197.647mil) on Top Overlay Silk Text to Silk Clearance [5.705mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4959.537mil|Location2.X=4966.787mil|Location1.Y=3354.544mil|Location2.Y=3361.794mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4959.537mil|Location2.X=4966.787mil|Location1.Y=3354.544mil|Location2.Y=3361.794mil|Absolute=True">Silk To Silk Clearance Constraint: (4.67mil &lt; 6mil) Between Arc (4950.984mil,3358.169mil) on Top Overlay And Text "SG12" (4970.497mil,3404.207mil) on Top Overlay Silk Text to Silk Clearance [4.67mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4893.888mil|Location2.X=4901.138mil|Location1.Y=2967.184mil|Location2.Y=2974.434mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4893.888mil|Location2.X=4901.138mil|Location1.Y=2967.184mil|Location2.Y=2974.434mil|Absolute=True">Silk To Silk Clearance Constraint: (5.627mil &lt; 6mil) Between Text "REF" (4897.513mil,2935.005mil) on Top Overlay And Track (4877.658mil,2977.559mil)(4907.776mil,2977.559mil) on Top Overlay Silk Text to Silk Clearance [5.627mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4925.804mil|Location2.X=4933.054mil|Location1.Y=2925.566mil|Location2.Y=2932.816mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4925.804mil|Location2.X=4933.054mil|Location1.Y=2925.566mil|Location2.Y=2932.816mil|Absolute=True">Silk To Silk Clearance Constraint: (5.627mil &lt; 6mil) Between Text "REF" (4897.513mil,2935.005mil) on Top Overlay And Track (4929.429mil,2922.441mil)(4945.571mil,2922.441mil) on Top Overlay Silk Text to Silk Clearance [5.627mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4973.862mil|Location2.X=4981.112mil|Location1.Y=2967.184mil|Location2.Y=2974.434mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\iamer\Desktop\CRAM_Mk1\CRAM.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4973.862mil|Location2.X=4981.112mil|Location1.Y=2967.184mil|Location2.Y=2974.434mil|Absolute=True">Silk To Silk Clearance Constraint: (5.627mil &lt; 6mil) Between Text "REF" (4897.513mil,2935.005mil) on Top Overlay And Track (4967.224mil,2977.559mil)(4997.342mil,2977.559mil) on Top Overlay Silk Text to Silk Clearance [5.627mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
